@@ -1,7 +1,8 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 const navItems = [
   {
@@ -20,7 +21,8 @@ const navItems = [
 
 const Header = () => {
   const path = usePathname();
-  const [activeLang, setActiveLang] = React.useState("EN");
+  const [activeLang, setActiveLang] = useState("EN");
+
 
   return (
     <header className="sticky top-0 z-50 bg-background w-full md:py-8 lg:py-10 py-5 px-5 lg:px-16 flex items-center justify-between">
@@ -55,7 +57,9 @@ const Header = () => {
             EN
           </button>
           <button
-            onClick={() => setActiveLang("JP")}
+            onClick={() => {
+              setActiveLang("JP");
+            }}
             className={`text-gray hover:text-black transition ${
               activeLang === "JP" && "text-black"
             }`}
