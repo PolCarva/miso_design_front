@@ -1,6 +1,8 @@
 import ProjectGallery from "@/components/ProjectGallery";
 import Image from "next/image";
 import { TfiAngleLeft, TfiAngleRight } from "react-icons/tfi";
+import { RxDashboard } from "react-icons/rx";
+import Link from "next/link";
 
 export default function Page({ params }: { params: { id: string } }) {
   const id = params.id;
@@ -83,7 +85,21 @@ export default function Page({ params }: { params: { id: string } }) {
           <TfiAngleRight className="hover:text-black transition cursor-pointer" />
         </div>
       </section>
-      <ProjectGallery />
+      <div className="hidden md:block">
+        <ProjectGallery />
+      </div>
+      {/* Mobile Flechitas */}
+      <div className="md:hidden flex mx-auto w-fit gap-5">
+        <Link href={"/"}>
+          <TfiAngleLeft className="hover:text-black transition cursor-pointer" />{" "}
+        </Link>
+        <Link href={"/"}>
+          <RxDashboard />
+        </Link>
+        <Link href={"/"}>
+          <TfiAngleRight className="hover:text-black transition cursor-pointer" />
+        </Link>
+      </div>
     </>
   );
 }
