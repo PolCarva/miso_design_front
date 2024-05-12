@@ -4,8 +4,8 @@ import React from "react";
 const page = () => {
   return (
     <div className="px-5 lg:px-16 flex gap-5">
-      <div className="w-10/12 flex mx-auto mt-16">
-        <div className="w-2/3 h-fit text-sm pr-16 text-balance flex flex-col gap-5">
+      <div className="w-10/12 flex flex-col md:flex-row mx-auto mt-16">
+        <div className="w-full md:w-2/3 h-fit text-sm md:pr-16 pb-10 text-balance flex flex-col gap-5">
           <div>
             <p>Born in 1977 in Tokyo.</p>
             <p>Japanese and French.</p>
@@ -37,9 +37,9 @@ const page = () => {
             </p>
           </div>
         </div>
-        <div className="w-1/5 h-full">
+        <div className="w-full md:w-1/3 mb-10 lg:w-1/4 mx-auto h-full -order-1 md:order-1">
           <Image
-          className="w-full h-full object-cover"
+          className="w-full md:aspect-[9/16] lg:aspect-auto object-cover"
             alt="Augusto Quincke"
             height={432}
             width={327}
