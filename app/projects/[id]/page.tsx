@@ -6,6 +6,8 @@ import Link from "next/link";
 
 export default function Page({ params }: { params: { id: string } }) {
   const id = params.id;
+  const images = Array.from({ length: 6 }, (_, i) => i + 1);
+
   return (
     <>
       <section className="px-5 w-full lg:px-16 flex flex-col md:flex-row pb-10">
@@ -43,41 +45,40 @@ export default function Page({ params }: { params: { id: string } }) {
         <div className="w-3/12 hidden md:block"></div>
         {/* Imgs */}
         <div className="flex mx-auto flex-col gap-5 w-full md:w-6/12 lg:w-6/12">
-          <Image
-            className="w-full h-full object-cover"
-            alt="Product"
-            width={808}
-            height={808}
-            src={`/img/${id}.jpeg`}
-          />
-          <Image
-            className="w-full h-full object-cover"
-            alt="Product"
-            width={808}
-            height={808}
-            src={`/img/${id}.jpeg`}
-          />
-          <div className="grid grid-cols-2 gap-5">
-            <Image
-              alt="Product"
-              width={808}
-              height={808}
-              src={`/img/${id}.jpeg`}
-            />
-            <Image
-              alt="Product"
-              width={808}
-              height={808}
-              src={`/img/${id}.jpeg`}
-            />
-          </div>
-          <Image
-            className="w-full h-full object-cover"
-            alt="Product"
-            width={808}
-            height={808}
-            src={`/img/${id}.jpeg`}
-          />
+          {images.map((imageId, index) => {
+            // Para las imágenes individuales y la primera del grid
+            if (index < 2 || index === 4) {
+              return (
+                <Image
+                  key={imageId}
+                  className="w-full h-full object-cover"
+                  alt="Product"
+                  width={808}
+                  height={808}
+                  src={`/img/${id}.jpeg`}
+                />
+              );
+            }
+            // Para las imágenes dentro del grid (index 2 y 3)
+            if (index === 2) {
+              return (
+                <div key={imageId} className="grid grid-cols-2 gap-5">
+                  <Image
+                    alt="Product"
+                    width={808}
+                    height={808}
+                    src={`/img/${id}.jpeg`}
+                  />
+                  <Image
+                    alt="Product"
+                    width={808}
+                    height={808}
+                    src={`/img/${id}.jpeg`}
+                  />
+                </div>
+              );
+            }
+          })}
         </div>
         {/* Flechas */}
         <div className="hidden md:flex fixed top-36 md:right-5 lg:right-16 text-gray h-fit w-1/12 text-2xl justify-around">
