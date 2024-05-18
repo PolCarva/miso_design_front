@@ -27,7 +27,13 @@ export default function Page({ params }: { params: { id: string } }) {
             rerum amet, esse dolor fugiat, aut quos, assumenda repellendus. Quos
             maxime aliquam quo id soluta harum, dicta quam.
           </p>
-          <Button text="Model Detail" />
+          <button
+            className="bg-transparent text-black ease-in-out 
+      duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-black
+hover:text-white"
+          >
+            Model Detail
+          </button>
         </div>
         {/* Text Mobile */}
         <div className="block md:hidden pb-10 h-fit w-full pr-5 gap-5 flex-col">
@@ -43,8 +49,13 @@ export default function Page({ params }: { params: { id: string } }) {
             rerum amet, esse dolor fugiat, aut quos, assumenda repellendus. Quos
             maxime aliquam quo id soluta harum, dicta quam.
           </p>
-          <Button text="Model Detail" />
-
+          <button
+            className="bg-transparent text-black ease-in-out 
+      duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-black
+hover:text-white"
+          >
+            Model Detail
+          </button>{" "}
         </div>
 
         {/* Div Invis */}
