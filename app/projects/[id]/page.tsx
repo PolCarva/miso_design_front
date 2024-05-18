@@ -1,17 +1,40 @@
+"use client";
 import ProjectGallery from "@/components/ProjectGallery";
 import Image from "next/image";
 import { TfiAngleLeft, TfiAngleRight } from "react-icons/tfi";
 import { RxDashboard } from "react-icons/rx";
 import Link from "next/link";
 import ModelViewer from "@/components/ModelViewer";
-import Button from "@/components/ui/Button";
+import { useState } from "react";
 
 export default function Page({ params }: { params: { id: string } }) {
+  const [isModelViewerOpen, setIsModelViewerOpen] = useState(false);
   const id = params.id;
   const images = Array.from({ length: 6 }, (_, i) => i + 1);
 
+  const openCloseModal = () => {
+    setIsModelViewerOpen(!isModelViewerOpen);
+  };
+
   return (
     <>
+      {isModelViewerOpen && (
+        <div
+          className="fixed flex cursor-pointer flex-col bg-black/60 p-5 md:p-10 inset-0 w-full h-full z-50"
+          onClick={openCloseModal}
+        >
+          <ModelViewer
+            className="mx-auto cursor-grab flex-1 max-w-[90svw] md:w-auto h-full aspect-square overflow-hidden rounded-xl"
+            src="/models/sofa_chair.glb"
+          />
+          <button
+            onClick={openCloseModal}
+            className="ease-in-out md:hidden duration-300 px-4 py-5 w-full mt-5 rounded border border-black  bg-black text-white"
+          >
+            Close Model
+          </button>
+        </div>
+      )}
       <section className="px-5 w-full lg:px-16 flex flex-col md:flex-row pb-10">
         {/* Text MD */}
         <div className="fixed hidden md:flex pb-10 top-36 h-fit w-4/12 pr-5 gap-5 flex-col">
@@ -28,9 +51,8 @@ export default function Page({ params }: { params: { id: string } }) {
             maxime aliquam quo id soluta harum, dicta quam.
           </p>
           <button
-            className="bg-transparent text-black ease-in-out 
-      duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-black
-hover:text-white"
+            onClick={openCloseModal}
+            className="bg-transparent text-black ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-black hover:text-white"
           >
             Model Detail
           </button>
@@ -50,9 +72,8 @@ hover:text-white"
             maxime aliquam quo id soluta harum, dicta quam.
           </p>
           <button
-            className="bg-transparent text-black ease-in-out 
-      duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-black
-hover:text-white"
+            onClick={openCloseModal}
+            className="bg-transparent text-black ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-black hover:text-white"
           >
             Model Detail
           </button>{" "}

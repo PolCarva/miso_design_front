@@ -19,7 +19,6 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ src, className }) => {
     // Set up scene, camera, and renderer
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf3f3f2); // Set the background color to white
-
     const camera = new THREE.PerspectiveCamera(75, mountRef.current.clientWidth / mountRef.current.clientHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
@@ -56,7 +55,7 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ src, className }) => {
     });
 
     // Set camera position
-    camera.position.z = 1.5;
+    camera.position.z = 4;
 
     // Render the scene
     const animate = () => {
@@ -85,7 +84,7 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ src, className }) => {
     };
   }, [src]);
 
-  return <div ref={mountRef} className={className || ""} />;
+  return <div onClick={e => e.stopPropagation()} ref={mountRef} className={className || ""} />;
 };
 
 export default ModelViewer;
