@@ -3,6 +3,8 @@ import Image from "next/image";
 import { TfiAngleLeft, TfiAngleRight } from "react-icons/tfi";
 import { RxDashboard } from "react-icons/rx";
 import Link from "next/link";
+import ModelViewer from "@/components/ModelViewer";
+import Button from "@/components/ui/Button";
 
 export default function Page({ params }: { params: { id: string } }) {
   const id = params.id;
@@ -25,6 +27,7 @@ export default function Page({ params }: { params: { id: string } }) {
             rerum amet, esse dolor fugiat, aut quos, assumenda repellendus. Quos
             maxime aliquam quo id soluta harum, dicta quam.
           </p>
+          <Button text="Model Detail" />
         </div>
         {/* Text Mobile */}
         <div className="block md:hidden pb-10 h-fit w-full pr-5 gap-5 flex-col">
@@ -40,7 +43,10 @@ export default function Page({ params }: { params: { id: string } }) {
             rerum amet, esse dolor fugiat, aut quos, assumenda repellendus. Quos
             maxime aliquam quo id soluta harum, dicta quam.
           </p>
+          <Button text="Model Detail" />
+
         </div>
+
         {/* Div Invis */}
         <div className="w-3/12 hidden md:block"></div>
         {/* Imgs */}
@@ -86,19 +92,20 @@ export default function Page({ params }: { params: { id: string } }) {
           <TfiAngleRight className="hover:text-black transition cursor-pointer" />
         </div>
       </section>
+
       <div className="hidden md:block">
         <ProjectGallery />
       </div>
       {/* Mobile Flechitas */}
-      <div className="md:hidden flex mx-auto w-fit gap-5">
+      <div className="md:hidden flex items-center mx-auto w-fit gap-5 pb-5">
         <Link href={"/"}>
-          <TfiAngleLeft className="hover:text-black transition cursor-pointer" />{" "}
+          <TfiAngleLeft className="hover:text-black text-xl transition cursor-pointer" />{" "}
         </Link>
         <Link href={"/"}>
-          <RxDashboard />
+          <RxDashboard className="text-black text-xl" />
         </Link>
         <Link href={"/"}>
-          <TfiAngleRight className="hover:text-black transition cursor-pointer" />
+          <TfiAngleRight className="hover:text-black text-xl transition cursor-pointer" />
         </Link>
       </div>
     </>
