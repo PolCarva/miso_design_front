@@ -5,27 +5,66 @@ import { TfiAngleLeft, TfiAngleRight } from "react-icons/tfi";
 import { RxDashboard } from "react-icons/rx";
 import Link from "next/link";
 import ModelViewer from "@/components/ModelViewer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Project, Projects } from "@/types";
+import { STABLES } from "@/stables";
 
 export default function Page({ params }: { params: { id: string } }) {
+  const [project, setProject] = useState<Project>();
   const [isModelViewerOpen, setIsModelViewerOpen] = useState(false);
+  const [projectList, setProjectList] = useState<Projects>();
+  const [nextProjectSlug, setNextProjectSlug] = useState<string>();
+  const [prevProjectSlug, setPrevProjectSlug] = useState<string>();
   const id = params.id;
-  const images = Array.from({ length: 6 }, (_, i) => i + 1);
 
   const openCloseModal = () => {
     setIsModelViewerOpen(!isModelViewerOpen);
   };
 
+  useEffect(() => {
+    const fetchProject = async () => {
+      const res = await fetch(`${STABLES.API_URL}/projects/by-slug/${id}`);
+      const project = await res.json();
+      setProject(project.docs[0]);
+    };
+    fetchProject();
+  }, [id]);
+
+  useEffect(() => {
+    const fetchProjectList = async () => {
+      const res = await fetch(`${STABLES.API_URL}/projects?limit=1000`);
+      const projects = await res.json();
+      setProjectList(projects);
+      const projectIndex = projects.docs.findIndex(
+        (project: Project) => project.slug === id
+      );
+
+      const hasNext = projectIndex < projects.docs.length - 1;
+      const hasPrev = projectIndex > 0;
+
+      const nextProjectSlug = hasNext
+        ? projects.docs[projectIndex + 1].slug
+        : projects.docs[0].slug;
+      const prevProjectSlug = hasPrev
+        ? projects.docs[projectIndex - 1].slug
+        : projects.docs[projects.docs.length - 1].slug;
+
+      setNextProjectSlug(nextProjectSlug);
+      setPrevProjectSlug(prevProjectSlug);
+    };
+    fetchProjectList();
+  }, [id]);
+
   return (
     <>
-      {isModelViewerOpen && (
+      {isModelViewerOpen && project && project.model && (
         <div
           className="fixed flex cursor-pointer flex-col bg-black/60 p-5 md:p-10 inset-0 w-full h-full z-50"
           onClick={openCloseModal}
         >
           <ModelViewer
             className="mx-auto cursor-grab flex-1 max-w-[90svw] md:w-auto h-full aspect-square overflow-hidden rounded-xl"
-            src="/models/sofa_chair.glb"
+            src={`${STABLES.API_URL}/${project.model.filename}`}
           />
           <button
             onClick={openCloseModal}
@@ -38,80 +77,76 @@ export default function Page({ params }: { params: { id: string } }) {
       <section className="px-5 w-full lg:px-16 flex flex-col md:flex-row pb-10">
         {/* Text MD */}
         <div className="fixed hidden md:flex pb-10 top-36 h-fit w-4/12 pr-5 gap-5 flex-col">
-          <p className="whitespace-pre-line">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit
-            recusandae non rem iusto vero pariatur veritatis dolorum officiis
-            consequuntur distinctio voluptatibus, impedit eveniet, consectetur,
-            aliquid illo.
+          <p className="whitespace-pre-line text-balance">
+            {project?.description}
           </p>
-          <p>
-            Ea blanditiis doloribus quis. Lorem ipsum, dolor sit amet
-            consectetur adipisicing elit. Dolorum nemo libero reprehenderit
-            rerum amet, esse dolor fugiat, aut quos, assumenda repellendus. Quos
-            maxime aliquam quo id soluta harum, dicta quam.
-          </p>
-          <button
-            onClick={openCloseModal}
-            className="bg-transparent text-black ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-black hover:text-white"
-          >
-            Model Detail
-          </button>
+          {!project && (
+            <div className="w-full aspect-[2/1] bg-gray/20 animate-pulse"></div>
+          )}
+          {project?.model && (
+            <button
+              onClick={openCloseModal}
+              className="bg-transparent text-black ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-black hover:text-white"
+            >
+              Model Detail
+            </button>
+          )}
         </div>
         {/* Text Mobile */}
         <div className="block md:hidden pb-10 h-fit w-full pr-5 gap-5 flex-col">
-          <p className="whitespace-pre-line">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit
-            recusandae non rem iusto vero pariatur veritatis dolorum officiis
-            consequuntur distinctio voluptatibus, impedit eveniet, consectetur,
-            aliquid illo.
+          {!project && (
+            <div className="w-full aspect-[1/2] bg-gray/20 animate-pulse"></div>
+          )}
+
+          <p className="whitespace-pre-line text-balance">
+            {project?.description}
           </p>
-          <p>
-            Ea blanditiis doloribus quis. Lorem ipsum, dolor sit amet
-            consectetur adipisicing elit. Dolorum nemo libero reprehenderit
-            rerum amet, esse dolor fugiat, aut quos, assumenda repellendus. Quos
-            maxime aliquam quo id soluta harum, dicta quam.
-          </p>
-          <button
-            onClick={openCloseModal}
-            className="bg-transparent text-black ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-black hover:text-white"
-          >
-            Model Detail
-          </button>{" "}
+          {project?.model && (
+            <button
+              onClick={openCloseModal}
+              className="bg-transparent text-black ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-black hover:text-white"
+            >
+              Model Detail
+            </button>
+          )}
         </div>
 
         {/* Div Invis */}
         <div className="w-3/12 hidden md:block"></div>
         {/* Imgs */}
         <div className="flex mx-auto flex-col gap-5 w-full md:w-6/12 lg:w-6/12">
-          {images.map((imageId, index) => {
+          {!project && (
+            <div className="w-full aspect-[4/3] bg-gray/20 animate-pulse"></div>
+          )}
+          {project?.images.map((doc, index) => {
             // Para las imágenes individuales y la primera del grid
             if (index < 2 || index === 4) {
               return (
                 <Image
-                  key={imageId}
+                  key={doc.image.id}
                   className="w-full h-full object-cover"
-                  alt="Product"
-                  width={808}
-                  height={808}
-                  src={`/img/${id}.jpeg`}
+                  alt={doc.image.alt}
+                  width={doc.image.width}
+                  height={doc.image.height}
+                  src={`${STABLES.UPLOADS_URL}/${doc.image.filename}`}
                 />
               );
             }
             // Para las imágenes dentro del grid (index 2 y 3)
             if (index === 2) {
               return (
-                <div key={imageId} className="grid grid-cols-2 gap-5">
+                <div key={doc.id} className="grid grid-cols-2 gap-5">
                   <Image
-                    alt="Product"
+                    alt={doc.image.alt}
                     width={808}
                     height={808}
-                    src={`/img/${id}.jpeg`}
+                    src={`${STABLES.UPLOADS_URL}/${doc.image.filename}`}
                   />
                   <Image
-                    alt="Product"
+                    alt={doc.image.alt}
                     width={808}
                     height={808}
-                    src={`/img/${id}.jpeg`}
+                    src={`${STABLES.UPLOADS_URL}/${doc.image.filename}`}
                   />
                 </div>
               );
@@ -120,23 +155,27 @@ export default function Page({ params }: { params: { id: string } }) {
         </div>
         {/* Flechas */}
         <div className="hidden md:flex fixed top-36 md:right-5 lg:right-16 text-gray h-fit w-1/12 text-2xl justify-around">
-          <TfiAngleLeft className="hover:text-black transition cursor-pointer" />{" "}
-          <TfiAngleRight className="hover:text-black transition cursor-pointer" />
+          <Link href={`/projects/${nextProjectSlug}`}>
+            <TfiAngleLeft className="hover:text-black text-xl transition cursor-pointer" />{" "}
+          </Link>
+          <Link href={`/projects/${prevProjectSlug}`}>
+            <TfiAngleRight className="hover:text-black text-xl transition cursor-pointer" />
+          </Link>{" "}
         </div>
       </section>
 
       <div className="hidden md:block">
-        <ProjectGallery />
+        {projectList && <ProjectGallery projectsList={projectList} />}
       </div>
       {/* Mobile Flechitas */}
       <div className="md:hidden flex items-center mx-auto w-fit gap-5 pb-5">
-        <Link href={"/"}>
+        <Link href={`/projects/${nextProjectSlug}`}>
           <TfiAngleLeft className="hover:text-black text-xl transition cursor-pointer" />{" "}
         </Link>
         <Link href={"/"}>
           <RxDashboard className="text-black text-xl" />
         </Link>
-        <Link href={"/"}>
+        <Link href={`/projects/${prevProjectSlug}`}>
           <TfiAngleRight className="hover:text-black text-xl transition cursor-pointer" />
         </Link>
       </div>
