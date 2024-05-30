@@ -11,8 +11,8 @@ interface ModelViewerProps {
 }
 
 const ModelViewer: React.FC<ModelViewerProps> = ({ src, className }) => {
-  const mountRef = useRef<HTMLDivElement>(null);
-
+  const mountRef = useRef<HTMLDivElement>(null);  
+  
   useEffect(() => {
     if (!mountRef.current) return;
 

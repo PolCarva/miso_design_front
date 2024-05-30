@@ -25,6 +25,8 @@ export default function Page({ params }: { params: { id: string } }) {
     const fetchProject = async () => {
       const res = await fetch(`${STABLES.API_URL}/projects/by-slug/${id}`);
       const project = await res.json();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
       setProject(project.docs[0]);
     };
     fetchProject();
@@ -64,7 +66,7 @@ export default function Page({ params }: { params: { id: string } }) {
         >
           <ModelViewer
             className="mx-auto cursor-grab flex-1 max-w-[90svw] md:w-auto h-full aspect-square overflow-hidden rounded-xl"
-            src={`${STABLES.API_URL}/${project.model.filename}`}
+            src={`${STABLES.UPLOADS_URL}/${project.model.filename}`}
           />
           <button
             onClick={openCloseModal}
