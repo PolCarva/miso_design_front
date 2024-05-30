@@ -46,6 +46,7 @@ const Footer = async () => {
           className="text-gray hover:text-dark-gray transition"
           href={social.url}
           target="_blank"
+          rel="noopener noreferrer"
           key={social.platform}
         >
           {getIconByPlatform(social.platform)}
