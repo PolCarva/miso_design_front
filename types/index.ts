@@ -17,6 +17,7 @@ export interface Project {
     slug:        string;
     images:      ImageElement[];
     model:       Model;
+    driveLink:   string;
     createdAt:   Date;
     updatedAt:   Date;
     description: string;

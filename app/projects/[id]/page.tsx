@@ -25,6 +25,7 @@ export default function Page({ params }: { params: { id: string } }) {
     const fetchProject = async () => {
       const res = await fetch(`${STABLES.API_URL}/projects/by-slug/${id}`);
       const project = await res.json();
+
       window.scrollTo({ top: 0, behavior: "smooth" });
 
       setProject(project.docs[0]);
@@ -88,28 +89,46 @@ export default function Page({ params }: { params: { id: string } }) {
           {project?.model && (
             <button
               onClick={openCloseModal}
-              className="bg-transparent text-black ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-black hover:text-white"
+              className="bg-black ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-dark-gray text-white"
             >
               Model Detail
             </button>
           )}
+          {project?.driveLink && (
+            <Link
+              href={project.driveLink}
+              target="_blank"
+              className="bg-transparent text-center text-black ease-in-out duration-300 px-4 py-2 w-full rounded border border-black  hover:bg-black hover:text-white"
+            >
+              Download
+            </Link>
+          )}
         </div>
         {/* Text Mobile */}
-        <div className="block md:hidden pb-10 h-fit w-full pr-5 gap-5 flex-col">
+        <div className="flex flex-col md:hidden pb-10 h-fit w-full gap-2">
           {!project && (
             <div className="w-full aspect-[1/2] bg-gray/20 animate-pulse"></div>
           )}
 
-          <p className="whitespace-pre-line text-balance">
+          <p className="whitespace-pre-line mb-5 text-balance">
             {project?.description}
           </p>
           {project?.model && (
             <button
               onClick={openCloseModal}
-              className="bg-transparent text-black ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-black hover:text-white"
+              className="bg-black text-white ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black "
             >
               Model Detail
             </button>
+          )}
+          {project?.driveLink && (
+            <Link
+              href={project.driveLink}
+              target="_blank"
+              className="bg-transparent text-center text-black ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black"
+            >
+              Download
+            </Link>
           )}
         </div>
 
