@@ -1,10 +1,17 @@
+import { STABLES } from "@/stables";
 import React from "react";
 
-const page = () => {
+const page = async () => {
+  const data = await fetch(`${STABLES.API_URL}/config/66492e49eb38e1a64a281be9?locale=undefined&draft=false&depth=1`);
+  const info = await data.json();
+
+  console.log(info);
+  
   const sendEmail = async () => {
     "use server";
     console.log("Sending email");
   };
+  
   return (
     <section className="px-5 lg:px-16 mt-5">
       <form className="md:w-1/2 flex flex-col gap-4 mx-auto" action={sendEmail}>
