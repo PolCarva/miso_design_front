@@ -1,12 +1,15 @@
 import { STABLES } from "@/stables";
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import React from "react";
+
+export const revalidate = 60;
 
 const page = async () => {
   const data = await fetch(`${STABLES.API_URL}/config/66492c2c993d98b2271c1f45?locale=undefined&draft=false&depth=1`);
   const info = await data.json();
-  revalidatePath("/about");
+
+  //revalidatePath("/about")
   
   return (
     <div className="px-5 lg:px-16 flex gap-5">
