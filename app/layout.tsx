@@ -25,12 +25,12 @@ export default function RootLayout({
           innerSize={8}
           outerSize={8}
           color="0, 0, 0"
-          trailingSpeed={0.001}
-          outerAlpha={1}
+          clickables={["[data-clickable='true']", "clickable", "a", "button", "input", "textarea", "select", "option", "label"]}
           innerScale={0}
           outerScale={5}
-          innerStyle={{ display: 'var(--cursor-display)'}}
-          outerStyle={{ display: 'var(--cursor-display)', border: '2px solid black'}} 
+          outerAlpha={0}
+          trailingSpeed={1}
+          outerStyle={{display: "var(--cursor-display)", border: "1px solid black" }}
         />
 
         <Header />

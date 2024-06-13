@@ -1,4 +1,3 @@
-import React, { ReactElement } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import Image from "next/image";
@@ -29,6 +28,7 @@ const SliderModal = ({ images, index, onClose } : SliderModalProps) => {
                 layout="fill"
                 objectFit="contain"
                 className="w-full h-full"
+
               />
             </SwiperSlide>
           ))}

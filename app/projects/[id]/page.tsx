@@ -182,12 +182,13 @@ export default function Page({ params }: { params: { id: string } }) {
                     </div>
                     <Image
                       key={doc.image.id}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover clickable"
                       alt={doc.image.alt}
                       width={doc.image.width}
                       height={doc.image.height}
                       src={`${STABLES.UPLOADS_URL}/${doc.image.filename}`}
                       onClick={() => openSliderModal(index)}
+                      data-clickable="true"
                     />
                   </>
                 );
@@ -197,12 +198,13 @@ export default function Page({ params }: { params: { id: string } }) {
                 return (
                   <Image
                     key={doc.image.id}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover clickable"
                     alt={doc.image.alt}
                     width={doc.image.width}
                     height={doc.image.height}
                     src={`${STABLES.UPLOADS_URL}/${doc.image.filename}`}
                     onClick={() => openSliderModal(index)}
+                    data-clickable="true"
                   />
                 );
               }
@@ -212,22 +214,24 @@ export default function Page({ params }: { params: { id: string } }) {
                   <div key={doc.id} className="grid grid-cols-2 gap-5">
                     <Image
                       key={project.images[2].image.id}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover clickable"
                       alt={project.images[2].image.alt}
                       width={project.images[2].image.width}
                       height={project.images[2].image.height}
                       src={`${STABLES.UPLOADS_URL}/${project.images[2].image.filename}`}
                       onClick={() => openSliderModal(2)}
+                      data-clickable="true"
                     />
                     {project.images[3] && (
                       <Image
                         key={project.images[3].image.id}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover clickable"
                         alt={project.images[3].image.alt}
                         width={project.images[3].image.width}
                         height={project.images[3].image.height}
                         src={`${STABLES.UPLOADS_URL}/${project.images[3].image.filename}`}
                         onClick={() => openSliderModal(3)}
+                        data-clickable="true"
                       />
                     )}
                   </div>
