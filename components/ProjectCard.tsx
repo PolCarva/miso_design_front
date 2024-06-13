@@ -17,9 +17,6 @@ const ProjectCard = ({ project }: { project: Project }) => {
          flex-col gap-1 items-center justify-center"
       >
         <h2 className="text-2xl font-medium">{project.title}</h2>
-        <span className="flex gap-2 items-center text-xs">
-          <GoDash /> view <GoDash />
-        </span>
       </div>
       <Image
         priority
