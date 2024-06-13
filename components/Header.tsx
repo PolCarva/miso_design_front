@@ -80,8 +80,29 @@ const Header = () => {
               </Link>
             </li>
           ))}
+          <li className="flex absolute bottom-5 gap-5 md:hidden">
+            <button
+              onClick={() => setActiveLang("EN")}
+              className={`text-gray p-5 hover:text-black transition ${
+                activeLang === "EN" && "text-black"
+              }`}
+            >
+              EN
+            </button>
+          <button
+            onClick={() => {
+              setActiveLang("JP");
+            }}
+            className={`text-gray p-5 hover:text-black transition ${
+              activeLang === "JP" && "text-black"
+            }`}
+          >
+            JP
+          </button>
+          </li>
+
         </ul>
-        <div className="gap-5 hidden md:flex w-1/5 justify-end">
+        <div className="gap-5 hidden order-2 md:flex w-1/5 justify-end">
           <button
             onClick={() => setActiveLang("EN")}
             className={`text-gray hover:text-black transition ${
