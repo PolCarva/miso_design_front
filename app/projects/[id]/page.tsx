@@ -62,7 +62,7 @@ export default function Page({ params }: { params: { id: string } }) {
     <>
       {isModelViewerOpen && project && project.model && (
         <div
-          className="fixed flex cursor-pointer flex-col bg-black/60 p-5 md:p-10 inset-0 w-full h-full z-50"
+          className="fixed flex flex-col bg-black/60 p-5 md:p-10 inset-0 w-full h-full z-50"
           onClick={openCloseModal}
         >
           <ModelViewer
@@ -183,10 +183,10 @@ export default function Page({ params }: { params: { id: string } }) {
         {/* Flechas */}
         <div className="hidden md:flex fixed top-36 md:right-5 lg:right-16 text-gray h-fit w-1/12 text-2xl justify-around">
           <Link href={`/projects/${nextProjectSlug}`}>
-            <TfiAngleLeft className="hover:text-black text-xl transition cursor-pointer" />{" "}
+            <TfiAngleLeft className="hover:text-black text-xl transition" />{" "}
           </Link>
           <Link href={`/projects/${prevProjectSlug}`}>
-            <TfiAngleRight className="hover:text-black text-xl transition cursor-pointer" />
+            <TfiAngleRight className="hover:text-black text-xl transition" />
           </Link>{" "}
         </div>
       </section>
@@ -197,13 +197,13 @@ export default function Page({ params }: { params: { id: string } }) {
       {/* Mobile Flechitas */}
       <div className="md:hidden flex items-center mx-auto w-fit gap-5 pb-5">
         <Link href={`/projects/${nextProjectSlug}`}>
-          <TfiAngleLeft className="hover:text-black text-xl transition cursor-pointer" />{" "}
+          <TfiAngleLeft className="hover:text-black text-xl transition" />{" "}
         </Link>
         <Link href={"/"}>
           <RxDashboard className="text-black text-xl" />
         </Link>
         <Link href={`/projects/${prevProjectSlug}`}>
-          <TfiAngleRight className="hover:text-black text-xl transition cursor-pointer" />
+          <TfiAngleRight className="hover:text-black text-xl transition" />
         </Link>
       </div>
     </>
