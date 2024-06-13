@@ -28,6 +28,8 @@ export default function RootLayout({
           outerAlpha={0.2}
           innerScale={0.7}
           outerScale={5}
+          innerStyle={{ display: 'var(--cursor-display)'}}
+          outerStyle={{ display: 'var(--cursor-display)'}} 
         />
 
         <Header />

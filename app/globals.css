@@ -20,3 +20,17 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px  #f3f3f2 inset;
   transition: background-color 5000s ease-in-out 0s;
 }
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+  :root {
+    --cursor-display: inherit;
+  }
+}
+
+/* mobile and tablet */
+@media (max-width: 1023px) {
+  :root {
+    --cursor-display: none;
+  }
+}
