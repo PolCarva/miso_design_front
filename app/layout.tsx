@@ -26,11 +26,11 @@ export default function RootLayout({
           outerSize={8}
           color="0, 0, 0"
           trailingSpeed={0.001}
-          outerAlpha={0}
+          outerAlpha={1}
           innerScale={0}
           outerScale={5}
           innerStyle={{ display: 'var(--cursor-display)'}}
-          outerStyle={{ display: 'var(--cursor-display)', border: '1px solid black'}} 
+          outerStyle={{ display: 'var(--cursor-display)', border: '2px solid black'}} 
         />
 
         <Header />

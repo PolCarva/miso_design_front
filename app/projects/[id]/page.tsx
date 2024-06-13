@@ -9,9 +9,12 @@ import ModelViewer from "@/components/ModelViewer";
 import { useEffect, useState } from "react";
 import { Project, Projects } from "@/types";
 import { STABLES } from "@/stables";
+import SliderModal from "@/components/SliderModal";
 
 export default function Page({ params }: { params: { id: string } }) {
   const [project, setProject] = useState<Project>();
+  const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
+  const [isSliderOpen, setIsSliderOpen] = useState<boolean>(false);
   const [isModelViewerOpen, setIsModelViewerOpen] = useState(false);
   const [projectList, setProjectList] = useState<Projects>();
   const [nextProjectSlug, setNextProjectSlug] = useState<string>();
@@ -20,6 +23,15 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const openCloseModal = () => {
     setIsModelViewerOpen(!isModelViewerOpen);
+  };
+
+  const openSliderModal = (index: number) => {
+    setActiveImageIndex(index);
+    setIsSliderOpen(true);
+  };
+
+  const closeSliderModal = () => {
+    setIsSliderOpen(false);
   };
 
   useEffect(() => {
@@ -61,6 +73,18 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <>
+      {isSliderOpen && project && (
+        <SliderModal
+          images={project.images.map((doc) => ({
+            src: `${STABLES.UPLOADS_URL}/${doc.image.filename}`,
+            alt: doc.image.alt,
+            width: doc.image.width,
+            height: doc.image.height,
+          }))}
+          index={activeImageIndex}
+          onClose={closeSliderModal}
+        />
+      )}
       {isModelViewerOpen && project && project.model && (
         <div
           className="fixed flex flex-col bg-black/60 p-5 md:p-10 inset-0 w-full h-full z-50"
@@ -163,6 +187,7 @@ export default function Page({ params }: { params: { id: string } }) {
                       width={doc.image.width}
                       height={doc.image.height}
                       src={`${STABLES.UPLOADS_URL}/${doc.image.filename}`}
+                      onClick={() => openSliderModal(index)}
                     />
                   </>
                 );
@@ -177,6 +202,7 @@ export default function Page({ params }: { params: { id: string } }) {
                     width={doc.image.width}
                     height={doc.image.height}
                     src={`${STABLES.UPLOADS_URL}/${doc.image.filename}`}
+                    onClick={() => openSliderModal(index)}
                   />
                 );
               }
@@ -191,6 +217,7 @@ export default function Page({ params }: { params: { id: string } }) {
                       width={project.images[2].image.width}
                       height={project.images[2].image.height}
                       src={`${STABLES.UPLOADS_URL}/${project.images[2].image.filename}`}
+                      onClick={() => openSliderModal(2)}
                     />
                     {project.images[3] && (
                       <Image
@@ -200,6 +227,7 @@ export default function Page({ params }: { params: { id: string } }) {
                         width={project.images[3].image.width}
                         height={project.images[3].image.height}
                         src={`${STABLES.UPLOADS_URL}/${project.images[3].image.filename}`}
+                        onClick={() => openSliderModal(3)}
                       />
                     )}
                   </div>
