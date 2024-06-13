@@ -18,6 +18,8 @@ export interface Project {
     images:      ImageElement[];
     model:       Model;
     driveLink:   string;
+    video:       string;
+    video_index:  number;
     createdAt:   Date;
     updatedAt:   Date;
     description: string;

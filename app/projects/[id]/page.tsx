@@ -1,4 +1,5 @@
 "use client";
+import ReactPlayer from "react-player";
 import ProjectGallery from "@/components/ProjectGallery";
 import Image from "next/image";
 import { TfiAngleLeft, TfiAngleRight } from "react-icons/tfi";
@@ -139,46 +140,88 @@ export default function Page({ params }: { params: { id: string } }) {
           {!project && (
             <div className="w-full aspect-[4/3] bg-gray/20 animate-pulse"></div>
           )}
-          {project?.images.map((doc, index) => {
-            // Para las imágenes individuales y la primera del grid
-            if (index < 2 || index === 4) {
-              return (
-                <Image
-                  key={doc.image.id}
-                  className="w-full h-full object-cover"
-                  alt={doc.image.alt}
-                  width={doc.image.width}
-                  height={doc.image.height}
-                  src={`${STABLES.UPLOADS_URL}/${doc.image.filename}`}
-                />
-              );
-            }
-            // Para las imágenes dentro del grid (index 2 y 3)
-            if (index === 2) {
-              return (
-                <div key={doc.id} className="grid grid-cols-2 gap-5">
+          {project &&
+            project.images.map((doc, index) => {
+              if (index === project.video_index) {
+                return (
+                  <>
+                    <div
+                      key={`video-${index}`}
+                      className="w-full h-full aspect-video"
+                    >
+                      <ReactPlayer
+                        url={project.video}
+                        width="100%"
+                        height="100%"
+                        controls={true}
+                      />
+                    </div>
+                    <Image
+                      key={doc.image.id}
+                      className="w-full h-full object-cover"
+                      alt={doc.image.alt}
+                      width={doc.image.width}
+                      height={doc.image.height}
+                      src={`${STABLES.UPLOADS_URL}/${doc.image.filename}`}
+                    />
+                  </>
+                );
+              }
+              // Para las imágenes individuales y la primera del grid
+              if (index < 2 || index === 4) {
+                return (
                   <Image
                     key={doc.image.id}
                     className="w-full h-full object-cover"
-                    alt={project.images[2].image.alt}
-                    width={project.images[2].image.width}
-                    height={project.images[2].image.height}
-                    src={`${STABLES.UPLOADS_URL}/${project.images[2].image.filename}`}
+                    alt={doc.image.alt}
+                    width={doc.image.width}
+                    height={doc.image.height}
+                    src={`${STABLES.UPLOADS_URL}/${doc.image.filename}`}
                   />
-                  {project.images[3] && (
+                );
+              }
+              // Para las imágenes dentro del grid (index 2 y 3)
+              if (index === 2) {
+                return (
+                  <div key={doc.id} className="grid grid-cols-2 gap-5">
                     <Image
-                      key={project.images[3].image.id}
+                      key={project.images[2].image.id}
                       className="w-full h-full object-cover"
-                      alt={project.images[3].image.alt}
-                      width={project.images[3].image.width}
-                      height={project.images[3].image.height}
-                      src={`${STABLES.UPLOADS_URL}/${project.images[3].image.filename}`}
+                      alt={project.images[2].image.alt}
+                      width={project.images[2].image.width}
+                      height={project.images[2].image.height}
+                      src={`${STABLES.UPLOADS_URL}/${project.images[2].image.filename}`}
                     />
-                  )}
-                </div>
-              );
-            }
-          })}
+                    {project.images[3] && (
+                      <Image
+                        key={project.images[3].image.id}
+                        className="w-full h-full object-cover"
+                        alt={project.images[3].image.alt}
+                        width={project.images[3].image.width}
+                        height={project.images[3].image.height}
+                        src={`${STABLES.UPLOADS_URL}/${project.images[3].image.filename}`}
+                      />
+                    )}
+                  </div>
+                );
+              }
+            })}
+
+          {project &&
+            project.video &&
+            project.video_index > project.images.length && (
+              <div
+                key={`video-${project.video_index}`}
+                className="w-full h-full aspect-video"
+              >
+                <ReactPlayer
+                  url={project.video}
+                  width="100%"
+                  height="100%"
+                  controls={true}
+                />
+              </div>
+            )}
         </div>
         {/* Flechas */}
         <div className="hidden md:flex fixed top-36 md:right-5 lg:right-16 text-gray h-fit w-1/12 text-2xl justify-around">
