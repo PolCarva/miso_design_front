@@ -91,7 +91,7 @@ export default function Page({ params }: { params: { id: string } }) {
               onClick={openCloseModal}
               className="bg-black ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-dark-gray text-white"
             >
-              Model Detail
+              3D Model
             </button>
           )}
           {project?.driveLink && (

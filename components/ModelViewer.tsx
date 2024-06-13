@@ -55,7 +55,7 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ src, className }) => {
     });
 
     // Set camera position
-    camera.position.z = 4;
+    camera.position.z = 160;
 
     // Render the scene
     const animate = () => {
