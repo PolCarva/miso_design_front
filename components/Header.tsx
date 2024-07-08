@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
@@ -33,7 +34,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 bg-background w-full md:py-8 lg:py-10 py-5 px-5 lg:px-16 flex items-center justify-between">
       <nav className="flex justify-between lg:gap-24 w-full md:gap-10 items-center font-medium">
         <Link href={"/"} className="text-xl md:w-1/5 lg:w-fit md:text-left">
-          MISO DESIGN <span className="block"> 味噌デザイン</span>
+          <Image alt="Miso Design Logo" className="w-40" height={282} width={1707} src={"/img/logo.png"} />
         </Link>
         <div className="relative py-3 md:hidden z-50">
           <button
