@@ -162,13 +162,13 @@ export default function Page({ params }: { params: { id: string } }) {
         {/* Div Invis */}
         <div className="w-3/12 hidden md:block"></div>
         {/* Imgs */}
-        <div className="flex mx-auto flex-col gap-5 w-full md:w-6/12 lg:w-6/12">
+        <div className="mx-auto grid grid-cols-2 gap-5 w-full md:w-6/12 lg:w-6/12">
           {!project && (
             <div className="w-full aspect-[4/3] bg-gray/20 animate-pulse"></div>
           )}
           {project &&
             project.images.map((doc, index) => (
-              <div key={index}>
+              <div  key={index} className={`${index === 3 || index === 2 ? "" : "col-span-2" }`}>
                 {index === project.video_index && (
                   <div key={`video-${index}`} className="w-full h-full aspect-video">
                     <ReactPlayer
@@ -181,7 +181,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 )}
                 <Image
                   key={doc.image.id}
-                  className="w-full h-full object-cover clickable"
+                  className={`w-full h-full object-cover clickable`}
                   alt={doc.image.alt}
                   width={doc.image.width}
                   height={doc.image.height}
@@ -196,7 +196,7 @@ export default function Page({ params }: { params: { id: string } }) {
             project.video_index >= project.images.length && (
               <div
                 key={`video-${project.video_index}`}
-                className="w-full h-full aspect-video"
+                className="w-full col-span-2 h-full aspect-video"
               >
                 <ReactPlayer
                   url={project.video}
