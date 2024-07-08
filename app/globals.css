@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -33,4 +36,13 @@ select:-webkit-autofill:focus {
   :root {
     --cursor-display: none;
   }
+}
+
+
+:root {
+  --font-roboto: 'Roboto', sans-serif;
+}
+
+.font-roboto {
+  font-family: var(--font-roboto);
 }

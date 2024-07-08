@@ -105,6 +105,7 @@ export default function Page({ params }: { params: { id: string } }) {
       <section className="px-5 w-full lg:px-16 flex flex-col md:flex-row pb-10">
         {/* Text MD */}
         <div className="fixed hidden md:flex pb-10 top-36 h-fit w-4/12 pr-5 gap-5 flex-col">
+          <h1 className="text-2xl">{project?.title}</h1>
           <p className="whitespace-pre-line text-balance">
             {project?.description}
           </p>
@@ -134,6 +135,7 @@ export default function Page({ params }: { params: { id: string } }) {
           {!project && (
             <div className="w-full aspect-[1/2] bg-gray/20 animate-pulse"></div>
           )}
+          <h1 className="text-2xl">{project?.title}</h1>
 
           <p className="whitespace-pre-line mb-5 text-balance">
             {project?.description}
@@ -165,83 +167,33 @@ export default function Page({ params }: { params: { id: string } }) {
             <div className="w-full aspect-[4/3] bg-gray/20 animate-pulse"></div>
           )}
           {project &&
-            project.images.map((doc, index) => {
-              if (index === project.video_index) {
-                return (
-                  <>
-                    <div
-                      key={`video-${index}`}
-                      className="w-full h-full aspect-video"
-                    >
-                      <ReactPlayer
-                        url={project.video}
-                        width="100%"
-                        height="100%"
-                        controls={true}
-                      />
-                    </div>
-                    <Image
-                      key={doc.image.id}
-                      className="w-full h-full object-cover clickable"
-                      alt={doc.image.alt}
-                      width={doc.image.width}
-                      height={doc.image.height}
-                      src={`${STABLES.UPLOADS_URL}/${doc.image.filename}`}
-                      onClick={() => openSliderModal(index)}
-                      data-clickable="true"
+            project.images.map((doc, index) => (
+              <div key={index}>
+                {index === project.video_index && (
+                  <div key={`video-${index}`} className="w-full h-full aspect-video">
+                    <ReactPlayer
+                      url={project.video}
+                      width="100%"
+                      height="100%"
+                      controls={true}
                     />
-                  </>
-                );
-              }
-              // Para las imágenes individuales y la primera del grid
-              if (index < 2 || index === 4) {
-                return (
-                  <Image
-                    key={doc.image.id}
-                    className="w-full h-full object-cover clickable"
-                    alt={doc.image.alt}
-                    width={doc.image.width}
-                    height={doc.image.height}
-                    src={`${STABLES.UPLOADS_URL}/${doc.image.filename}`}
-                    onClick={() => openSliderModal(index)}
-                    data-clickable="true"
-                  />
-                );
-              }
-              // Para las imágenes dentro del grid (index 2 y 3)
-              if (index === 2) {
-                return (
-                  <div key={doc.id} className="grid grid-cols-2 gap-5">
-                    <Image
-                      key={project.images[2].image.id}
-                      className="w-full h-full object-cover clickable"
-                      alt={project.images[2].image.alt}
-                      width={project.images[2].image.width}
-                      height={project.images[2].image.height}
-                      src={`${STABLES.UPLOADS_URL}/${project.images[2].image.filename}`}
-                      onClick={() => openSliderModal(2)}
-                      data-clickable="true"
-                    />
-                    {project.images[3] && (
-                      <Image
-                        key={project.images[3].image.id}
-                        className="w-full h-full object-cover clickable"
-                        alt={project.images[3].image.alt}
-                        width={project.images[3].image.width}
-                        height={project.images[3].image.height}
-                        src={`${STABLES.UPLOADS_URL}/${project.images[3].image.filename}`}
-                        onClick={() => openSliderModal(3)}
-                        data-clickable="true"
-                      />
-                    )}
                   </div>
-                );
-              }
-            })}
-
+                )}
+                <Image
+                  key={doc.image.id}
+                  className="w-full h-full object-cover clickable"
+                  alt={doc.image.alt}
+                  width={doc.image.width}
+                  height={doc.image.height}
+                  src={`${STABLES.UPLOADS_URL}/${doc.image.filename}`}
+                  onClick={() => openSliderModal(index)}
+                  data-clickable="true"
+                />
+              </div>
+            ))}
           {project &&
             project.video &&
-            project.video_index > project.images.length && (
+            project.video_index >= project.images.length && (
               <div
                 key={`video-${project.video_index}`}
                 className="w-full h-full aspect-video"

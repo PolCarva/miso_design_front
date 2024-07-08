@@ -1,5 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import 'swiper/css';
+import 'swiper/css/navigation';
 import Image from "next/image";
 
 interface Image {
@@ -18,8 +20,13 @@ interface SliderModalProps {
 const SliderModal = ({ images, index, onClose } : SliderModalProps) => {
   return (
     <div onClick={onClose} className="fixed inset-0 bg-black bg-opacity-75 z-50 flex justify-center items-center">
+      <span data-clickable={true} onClick={(e) => e.stopPropagation()} className="!cursor-none clickable swiper-button-next !text-white"></span>
+      <span data-clickable={true} onClick={(e) => e.stopPropagation()} className="!cursor-none clickable swiper-button-prev !text-white"></span>
       <div className="relative w-full h-full">
-        <Swiper initialSlide={index} className="w-full h-full">
+        <Swiper modules={[Navigation]} navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        }} initialSlide={index} className="w-full h-full">
           {images.map((image, i) => (
             <SwiperSlide key={i} className="w-full h-full flex justify-center items-center">
               <Image

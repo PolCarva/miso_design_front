@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import "./globals.css"; // Asegúrate de que aquí estás importando globalmente si es necesario
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedCursor from "react-animated-cursor";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "MISO DESIGN | 味噌デザイン",
@@ -20,17 +17,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-background`}>
+      <body className="font-roboto bg-background"> {/* Aplica la clase font-roboto aquí */}
         <AnimatedCursor
           innerSize={8}
           outerSize={8}
           color="0, 0, 0"
-          clickables={["[data-clickable='true']", "clickable", "a", "button", "input", "textarea", "select", "option", "label"]}
+          clickables={[
+            "[data-clickable='true']",
+            "clickable",
+            "a",
+            "button",
+            "input",
+            "textarea",
+            "select",
+            "option",
+            "label",
+          ]}
           innerScale={0}
           outerScale={5}
           outerAlpha={0}
           trailingSpeed={1}
-          outerStyle={{display: "var(--cursor-display)", border: "1px solid black" }}
+          outerStyle={{ display: "var(--cursor-display)", border: "1px solid black" }}
         />
 
         <Header />
