@@ -1,0 +1,12 @@
+{
+    "name": "名前",
+    "span": "何でもお気軽に聞いてください",
+    "email": "メール",
+    "message": "メッセージ",
+    "send": "送信",
+    "name_placeholder": "あなたの名前...",
+    "email_placeholder": "あなたのメールアドレス...",
+    "message_placeholder": "メッセージ内容...",
+    "success": "メッセージが正常に送信されました",
+    "error": "メッセージの送信中にエラーが発生しました"
+}

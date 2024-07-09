@@ -1,0 +1,12 @@
+{
+    "name": "Name",
+    "span": "Feel free to ask me anything",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send",
+    "name_placeholder": "Your name...",
+    "email_placeholder": "Your email...",
+    "message_placeholder": "Your message...",
+    "success": "Message sent successfully",
+    "error": "An error occurred while sending the message"
+}

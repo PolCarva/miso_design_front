@@ -1,127 +1,44 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { useState } from "react";
-import { FaBars } from "react-icons/fa6";
+import MobileMenu from "./MobileMenu";
+import LangSwitcher from "./LangSwitcher";
+import initTranslations from "@/app/i18n";
+import DesktopMenu from "./DesktopMenu";
 
-const navItems = [
-  {
-    text: "About",
-    href: "/about",
-  },
-  {
-    text: "Work",
-    href: "/",
-  },
-  {
-    text: "Contact",
-    href: "/contact",
-  },
-];
-
-const Header = () => {
-  const path = usePathname();
-  const [activeLang, setActiveLang] = useState("EN");
-  const [activeMenu, setActiveMenu] = useState(false);
-
-  const toggleMenu = () => {
-    setActiveMenu(!activeMenu);
-  };
-
+const Header = async ({ locale }: { locale: string }) => {
+  const { t } = await initTranslations(locale, ["header"]);
+  const navItems = [
+    {
+      text: t("about"),
+      href: "/about",
+    },
+    {
+      text: t("work"),
+      href: "/",
+    },
+    {
+      text: t("contact"),
+      href: "/contact",
+    },
+  ];
   return (
     <header className="sticky top-0 z-50 bg-background w-full md:py-8 lg:py-10 py-5 px-5 lg:px-16 flex items-center justify-between">
       <nav className="flex justify-between lg:gap-24 w-full md:gap-10 items-center font-medium">
         <Link href={"/"} className="text-xl md:w-1/5 lg:w-fit md:text-left">
-          <Image alt="Miso Design Logo" className="w-40" height={282} width={1707} src={"/img/logo.png"} />
+          <Image
+            alt="Miso Design Logo"
+            className="w-40"
+            height={282}
+            width={1707}
+            src={"/img/logo.png"}
+          />
         </Link>
         <div className="relative py-3 md:hidden z-50">
-          <button
-            className="text-gray-500 w-10 h-10 relative focus:outline-none"
-            onClick={toggleMenu}
-          >
-            <span className="sr-only">
-              {activeMenu ? "Close" : "Open"} main menu
-            </span>
-            <div className="block w-5 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <span
-                className={`block rounded-full absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out ${
-                  activeMenu ? "rotate-45 -translate-y-1.5" : "-translate-y-2"
-                }`}
-              ></span>
-              <span
-                className={`block rounded-full absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out ${
-                  activeMenu ? "-rotate-45 -translate-y-1.5" : ""
-                }`}
-              ></span>
-            </div>
-          </button>
+          <MobileMenu navItems={navItems} locale={locale} />
         </div>
-        <ul
-          className={`flex flex-col transition duration-500 ease-in-out md:flex-row md:translate-x-0 md:static justify-center items-center gap-8
-         md:justify-center lg:flex-1 lg:justify-start md:space-x-8 
-         fixed w-full h-full inset-0 bg-background ${
-           activeMenu ? "translate-x-0" : "translate-x-full"
-         }`}
-        >
-          {navItems.map((item) => (
-            <li key={item.text}>
-              <Link
-                onClick={toggleMenu}
-                href={item.href}
-                className={`before:h-px relative before:-bottom-1 before:absolute ${
-                  path === item.href ||
-                  (item.text === "Work" && path.startsWith("/projects"))
-                    ? "text-black before:w-full before:bg-black"
-                    : " before:w-0 text-gray before:bg-gray hover:before:w-full before:transition-all"
-                }`}
-              >
-                {item.text}
-              </Link>
-            </li>
-          ))}
-          <li className="flex absolute bottom-5 gap-5 md:hidden">
-            <button
-              onClick={() => setActiveLang("EN")}
-              className={`text-gray p-5 hover:text-black transition ${
-                activeLang === "EN" && "text-black"
-              }`}
-            >
-              EN
-            </button>
-          <button
-            onClick={() => {
-              setActiveLang("JP");
-            }}
-            className={`text-gray p-5 hover:text-black transition ${
-              activeLang === "JP" && "text-black"
-            }`}
-          >
-            JP
-          </button>
-          </li>
-
-        </ul>
+        <DesktopMenu navItems={navItems} />
         <div className="gap-5 hidden order-2 md:flex w-1/5 justify-end">
-          <button
-            onClick={() => setActiveLang("EN")}
-            className={`text-gray hover:text-black transition ${
-              activeLang === "EN" && "text-black"
-            }`}
-          >
-            EN
-          </button>
-          <button
-            onClick={() => {
-              setActiveLang("JP");
-            }}
-            className={`text-gray hover:text-black transition ${
-              activeLang === "JP" && "text-black"
-            }`}
-          >
-            JP
-          </button>
+          <LangSwitcher locale={locale} />
         </div>
       </nav>
     </header>

@@ -10,8 +10,11 @@ import { useEffect, useState } from "react";
 import { Project, Projects } from "@/types";
 import { STABLES } from "@/stables";
 import SliderModal from "@/components/SliderModal";
+import { usePathname } from "next/navigation";
 
 export default function Page({ params }: { params: { id: string } }) {
+  const path = usePathname();
+
   const [project, setProject] = useState<Project>();
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
   const [isSliderOpen, setIsSliderOpen] = useState<boolean>(false);

@@ -1,0 +1,10 @@
+{
+  "fomr_span": "何でもお気軽にお尋ねください",
+  "form_name": "名前",
+  "form_email": "メール",
+  "form_message": "メッセージ",
+  "form_button": "送信",
+  "form_email_placeholder": "あなたのメールアドレス...",
+  "form_name_placeholder": "あなたの名前...",
+  "form_message_placeholder": "あなたのメッセージ..."
+}
