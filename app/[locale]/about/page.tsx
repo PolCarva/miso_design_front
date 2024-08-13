@@ -5,7 +5,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const { locale } = useParams();
   const [infoData, setInfoData] = useState<{
     bio: string;
@@ -56,4 +56,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
