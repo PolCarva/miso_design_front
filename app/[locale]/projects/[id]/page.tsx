@@ -10,10 +10,11 @@ import { useEffect, useState } from "react";
 import { Project, Projects } from "@/types";
 import { STABLES } from "@/stables";
 import SliderModal from "@/components/SliderModal";
-import { usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 
 export default function Page({ params }: { params: { id: string } }) {
-  const path = usePathname();
+  const {locale} = useParams();
+  
 
   const [project, setProject] = useState<Project>();
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
@@ -41,6 +42,8 @@ export default function Page({ params }: { params: { id: string } }) {
     const fetchProject = async () => {
       const res = await fetch(`${STABLES.API_URL}/projects/by-slug/${id}`);
       const project = await res.json();
+      console.log(project);
+      
 
       window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -101,16 +104,17 @@ export default function Page({ params }: { params: { id: string } }) {
             onClick={openCloseModal}
             className="ease-in-out md:hidden duration-300 px-4 py-5 w-full mt-5 rounded border border-black  bg-black text-white"
           >
-            Close Model
+            {locale === "ja" ? "モデルを閉じる" : "Close Model"}
           </button>
         </div>
       )}
       <section className="px-5 w-full lg:px-16 flex flex-col md:flex-row pb-10">
         {/* Text MD */}
         <div className="fixed hidden md:flex pb-10 top-36 h-fit w-4/12 pr-5 gap-5 flex-col">
-          <h1 className="text-2xl">{project?.title}</h1>
+          <h1 className="text-2xl">{locale === "ja" ? project?.title_jp: project?.title}</h1>
           <p className="whitespace-pre-line text-balance">
-            {project?.description}
+            
+            {locale === "ja" ? project?.description_jp:  project?.description}
           </p>
           {!project && (
             <div className="w-full aspect-[2/1] bg-gray/20 animate-pulse"></div>
@@ -120,7 +124,7 @@ export default function Page({ params }: { params: { id: string } }) {
               onClick={openCloseModal}
               className="bg-black ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black  hover:bg-dark-gray text-white"
             >
-              3D Model
+              {locale === 'ja' ? "3D モデル" : "3D Model"}
             </button>
           )}
           {project?.driveLink && (
@@ -129,7 +133,7 @@ export default function Page({ params }: { params: { id: string } }) {
               target="_blank"
               className="bg-transparent text-center text-black ease-in-out duration-300 px-4 py-2 w-full rounded border border-black  hover:bg-black hover:text-white"
             >
-              Download
+              {locale === 'ja' ? "ダウンロード" : "Download"}
             </Link>
           )}
         </div>
@@ -138,7 +142,9 @@ export default function Page({ params }: { params: { id: string } }) {
           {!project && (
             <div className="w-full aspect-[1/2] bg-gray/20 animate-pulse"></div>
           )}
-          <h1 className="text-2xl">{project?.title}</h1>
+          <h1 className="text-2xl">
+            {locale === "ja" ? project?.title_jp: project?.title}
+          </h1>
 
           <p className="whitespace-pre-line mb-5 text-balance">
             {project?.description}
@@ -148,7 +154,7 @@ export default function Page({ params }: { params: { id: string } }) {
               onClick={openCloseModal}
               className="bg-black text-white ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black "
             >
-              Model Detail
+              {locale === 'ja' ? "モデルの詳細" : "Model Detail"}
             </button>
           )}
           {project?.driveLink && (
@@ -157,7 +163,7 @@ export default function Page({ params }: { params: { id: string } }) {
               target="_blank"
               className="bg-transparent text-center text-black ease-in-out duration-300 px-4 py-2 w-full mt-5 rounded border border-black"
             >
-              Download
+              {locale === 'ja' ? "ダウンロード" : "Download"}
             </Link>
           )}
         </div>

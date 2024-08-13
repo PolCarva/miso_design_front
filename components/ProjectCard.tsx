@@ -1,10 +1,14 @@
+"use client";
+
 import { STABLES } from "@/stables";
 import { Project } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useParams } from "next/navigation";
 
 const ProjectCard = ({ project }: { project: Project }) => {
+  const { locale } = useParams();
   return (
     <Link
       href={`/projects/${project.slug}`}
@@ -15,7 +19,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
          duration-300 transition-all z-10 w-full h-full bg-black/80 flex 
          flex-col gap-1 items-center justify-center"
       >
-        <h2 className="text-2xl font-medium">{project.title}</h2>
+        <h2 className="text-2xl font-medium">
+          {locale === "ja" ? project.title_jp : project.title}
+        </h2>
       </div>
       <Image
         priority

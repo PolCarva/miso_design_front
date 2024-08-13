@@ -14,6 +14,7 @@ export interface Projects {
 export interface Project {
     id:          string;
     title:       string;
+    title_jp:    string;
     slug:        string;
     images:      ImageElement[];
     model:       Model;
@@ -23,6 +24,7 @@ export interface Project {
     createdAt:   Date;
     updatedAt:   Date;
     description: string;
+    description_jp: string;
 }
 
 export interface ImageElement {
