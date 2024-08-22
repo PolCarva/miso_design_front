@@ -28,7 +28,7 @@ const LangSwitcher = ({ locale }: { locale: string }) => {
           locale === "ja" && "!text-black"
         }`}
       >
-        JA
+        JP
       </button>
     </>
   );
