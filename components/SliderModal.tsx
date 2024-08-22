@@ -31,7 +31,7 @@ const SliderModal = ({ images, index, onClose } : SliderModalProps) => {
             <SwiperSlide key={i} className="w-full h-full flex justify-center items-center">
               <Image
                 src={image.src}
-                alt={image.alt}
+                alt={image.alt ?? "Project image"}
                 width={image.width}
                 height={image.height}
                 layout="fill"
