@@ -32,6 +32,8 @@ const SliderModal = ({ images, index, onClose } : SliderModalProps) => {
               <Image
                 src={image.src}
                 alt={image.alt}
+                width={image.width}
+                height={image.height}
                 layout="fill"
                 objectFit="contain"
                 className="w-full h-full"

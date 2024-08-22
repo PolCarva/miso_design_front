@@ -27,8 +27,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
         priority
         className="w-full h-full object-cover"
         alt={project?.images[0]?.image?.alt}
-        width={project?.images[0]?.image?.width}
-        height={project?.images[0]?.image?.height}
+        width={project?.images[0]?.image?.width ?? 1080}
+        height={project?.images[0]?.image?.height ?? 1080}
         src={`${STABLES.UPLOADS_URL}/${project?.images[0]?.image?.filename}`}
       />
     </Link>
