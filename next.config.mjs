@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "misodesign.up.railway.app",
+        hostname: "miso-design.up.railway.app",
         port: "",
         pathname: "/media/**",
       },
