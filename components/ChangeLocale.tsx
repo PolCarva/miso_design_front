@@ -22,7 +22,7 @@ const ChangeLocale = ({
             locale === "ja" ? "text-black" : "text-gray"
           }  p-5 hover:text-black transition`}
         >
-          JA
+          JP
         </button>
       </li>
     </>
@@ -41,7 +41,7 @@ const ChangeLocale = ({
           locale === "ja" ? "text-black" : "text-gray"
         }  p-5 hover:text-black transition`}
       >
-        JA
+        JP
       </button>
     </>
   );
