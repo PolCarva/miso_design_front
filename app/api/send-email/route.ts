@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 export async function POST(request: Request) {
-  const { from, name, message } = await request.json();
+  const { email, name, message, to } = await request.json();
 
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
@@ -18,10 +18,10 @@ export async function POST(request: Request) {
 
   const emailToSend = {
     from: `${name} <website@pablocarvalho.dev>`,
-    to: ["misomiso.design@gmail.com"],
+    to: to,
     subject: `Mensaje de ${name} por la web de misodesign.work`,
     html: `<h1>Mensaje de ${name}</h1>
-    <h2>De: ${name} (${from})</h2>
+    <h2>De: ${name} (${email})</h2>
     <hr><br>
     <p style="display: block; font-size: 18px">
     ${message}
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   try {
     await resend.emails.send(emailToSend);
 
-    console.log("Email sent successfully");
+    console.log("Email sent successfully", email, to);
 
     return NextResponse.json({ message: "Email sent successfully" });
   } catch (error) {
