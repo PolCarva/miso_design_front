@@ -41,9 +41,7 @@ export default function Page({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchProject = async () => {
       const res = await fetch(`${STABLES.API_URL}/projects/by-slug/${id}`);
-      const project = await res.json();
-      console.log(project);
-      
+      const project = await res.json();      
 
       window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -147,7 +145,7 @@ export default function Page({ params }: { params: { id: string } }) {
           </h1>
 
           <p className="whitespace-pre-line mb-5 text-balance">
-            {project?.description}
+          {locale === "ja" ? project?.description_jp: project?.description}
           </p>
           {project?.model && (
             <button

@@ -21,7 +21,7 @@ const MobileMenu = ({ locale, navItems }: { locale: string, navItems: navItem[] 
   return (
     <>
       <button
-        className="text-gray-500 w-10 h-10 relative focus:outline-none"
+        className="text-gray-500 z-50 w-10 h-10 relative focus:outline-none"
         onClick={toggleMenu}
       >
         <span className="sr-only">
